@@ -89,7 +89,7 @@ Il s’agit du *shell* ou du *bash* (Linux/Ubuntu) du **nœud maître**.
   
    		 docker start hadoop-master hadoop-slave1 hadoop-slave2
 
-# Manipulation de fichiers dans HDFS
+# Vid3 : Manipulation de fichiers dans HDFS
  Une fois Hadoop lancé, on affiche les fichiers avec la commande : 
  --
 
@@ -120,17 +120,43 @@ Nous allons copier le fichier **purchase.txt** que nous avons dans notre machine
 Pour le copier dans **input**, on fait : 
 --
 
-    hadoop fs -put purchases.txt input
+    hdfs dfs -put purchases.txt input
 
 Pour l'afficher, on tape :
 --
 
-    hadoop fs -ls input
+    hdfs dfs -ls input
 
 Pour voir la structure du fichier **input/purchases.txt**, on tape :
 --
 
-    hadoop fs -tail input/purchases.txt
+    hdfs dfs -tail input/purchases.txt
 
+--
+## Interfaces web pour Hadoop
 
+Hadoop offre plusieurs interfaces web pour pouvoir observer le comportement de ses différentes composantes. Il est possible d'afficher ces pages directement sur notre machine hôte, et ce grâce à l'utilisation de l'option *-**p* de la commande *docker run*. En effet, cette option permet de publier un port du contenaire sur la machine hôte.
 
+En regardant la commande docker run utilisée plus haut, vous verrez que deux ports de la machine maître ont été exposés:
+
+    - Le port 9870: qui permet d'afficher les informations de votre namenode.
+    - Le port 8088: qui permet d'afficher les informations du resource manager de Yarn et visualiser le comportement des différents jobs.
+
+Une fois votre cluster lancé et hadoop démarré et prêt à l'emploi, vous pouvez, sur votre navigateur préféré de votre machine hôte, aller à : http://localhost:9870.
+
+## Vid4 : MapReduce avec Java
+
+### Présentation
+
+Un **Job Map-Reduce** se compose principalement de deux types de programmes:
+
+ - **Mappers** : permettent d’extraire les données nécessaires sous forme de clef/valeur, pour pouvoir ensuite les trier selon la clef;
+
+ - **Reducers** : prennent un ensemble de données triées selon leur clef, et effectuent le traitement nécessaire sur ces données (somme, moyenne, total...)
+
+### Wordcount
+
+Nous allons tester un programme **MapReduce** grâce à un exemple très simple, le *WordCount*, l'équivalent du *HelloWorld* pour les applications de traitement de données. Le Wordcount permet de calculer le nombre de mots dans un fichier donné, en décomposant le calcul en deux étapes:
+
+    - L'étape de Mapping, qui permet de découper le texte en mots et de délivrer en sortie un flux textuel, où chaque ligne contient le mot trouvé, suivi de la valeur 1 (pour dire que le mot a été trouvé une fois)
+    - L'étape de Reducing, qui permet de faire la somme des 1 pour chaque mot, pour trouver le nombre total d'occurrences de ce mot dans le texte.
