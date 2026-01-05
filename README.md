@@ -27,7 +27,9 @@ Ce container contient une distribution **Linux/Ubuntu, et les librairies nécess
 Il contient également **python3.x** (version du langage python compatible avec les versions de Hadoop et Spark installées).
 
 ## 2- Créez les 3 contenaires à partir de l’image téléchargée. 
+
 Pour cela:
+
 ### a. Créez un réseau qui permettra de relier les trois contenaires:
 
 	docker network create --driver=bridge hadoop
@@ -90,14 +92,16 @@ Il s’agit du *shell* ou du *bash* (Linux/Ubuntu) du **nœud maître**.
   
    		 docker start hadoop-master hadoop-slave1 hadoop-slave2
 
-# Vid3 : Manipulation de fichiers dans HDFS
+## Vid3 : Manipulation de fichiers dans HDFS
 
  Une fois Hadoop lancé, on affiche les fichiers avec la commande : 
+
  --
 
     ls -l 
 
 Pour pouvoir manipuler les fichiers, on va utiliser la commande : 
+
 --
 
     hadoop fs
@@ -105,6 +109,7 @@ Pour pouvoir manipuler les fichiers, on va utiliser la commande :
 Il va permettre d'uliliser **hdfs** comme si on était directement sur une seule machine. 
 Créons une dossier imput apr exemple avec **-p** qui va prendre le path jusqu'à arriver à ce chemin.
 Sans ce **-p** hadoop ne va rien créer car rien n'existe encore.
+
 --
 
     hadoop fs -mkdir -p input
@@ -120,6 +125,7 @@ Nous allons copier le fichier **purchase.txt** que nous avons dans notre machine
     ls
 
 Pour le copier dans **input**, on fait : 
+
 --
 
     hdfs dfs -put purchases.txt input
