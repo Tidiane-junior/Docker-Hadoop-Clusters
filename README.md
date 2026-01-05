@@ -34,12 +34,16 @@ Pour cela:
 ### b. Créez et lancez les trois contenaires 
 Les instructions *-p* permettent de faire un mapping entre les ports de la machine hôte et ceux du contenaire.
 Important Dans la suite, adaptez la syntaxe -16 à la syntaxe -8, en fonction de l’image que vous avez téléchargée.
-
+1er contenaire : 	 
+--
     docker run -itd --net=hadoop -p 9870:9870 -p 8088:8088 -p 7077:7077 -p 16010:16010 -p 9999:9999\
      --name hadoop-master --hostname hadoop-master liliasfaxi/docker-cluster-hadoop-spark-python-16:3.6
-
-    docker run -itd -p 8040:8042 --net=hadoop --name hadoop-slave1\
+2em contenaire : 	 
+--
+	docker run -itd -p 8040:8042 --net=hadoop --name hadoop-slave1\
      --hostname hadoop-slave1 liliasfaxi/docker-cluster-hadoop-spark-python-16:3.6*
+3em contenaire : 	 
+--
 
     docker run -itd -p 8041:8042 --net=hadoop --name hadoop-slave2\
      --hostname hadoop-slave2 liliasfaxi/docker-cluster-hadoop-spark-python-16:3.6
@@ -76,11 +80,11 @@ Il s’agit du *shell* ou du *bash* (Linux/Ubuntu) du **nœud maître**.
 
 ## Remarque 2
  Ces étapes de configuration ne doivent être réalisées qu’une seule fois. 
- Pour relancer le cluster (une fois qu’on a fermé et relancé son ordinateur p. ex.), il suffira :
+ Pour relancer le cluster (une fois qu’on a fermé puis relancé son ordinateur par ex.), il suffira :
   - de lancer l’application *Docker Desktop*, qui lance les daemon Docker.
   - de lancer la commande suivante : 
   
-    docker start hadoop-master hadoop-slave1 hadoop-slave2
+   		 docker start hadoop-master hadoop-slave1 hadoop-slave2
 
 # Manipulation de fichiers dans HDFS
  
