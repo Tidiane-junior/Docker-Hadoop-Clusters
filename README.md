@@ -29,11 +29,14 @@ Il contient également **python3.x** (version du langage python compatible avec 
 ## 2- Créez les 3 contenaires à partir de l’image téléchargée. 
 Pour cela:
 ### a. Créez un réseau qui permettra de relier les trois contenaires:
+
 	docker network create --driver=bridge hadoop
 	
 ### b. Créez et lancez les trois contenaires 
-Les instructions *-p* permettent de faire un mapping entre les ports de la machine hôte et ceux du contenaire.
+
+Les instructions **-****p** permettent de faire un mapping entre les ports de la machine hôte et ceux du contenaire.
 Important Dans la suite, adaptez la syntaxe -16 à la syntaxe -8, en fonction de l’image que vous avez téléchargée.
+
 1er contenaire : 	 
 --
     docker run -itd --net=hadoop -p 9870:9870 -p 8088:8088 -p 7077:7077 -p 16010:16010 -p 9999:9999\
@@ -87,5 +90,47 @@ Il s’agit du *shell* ou du *bash* (Linux/Ubuntu) du **nœud maître**.
    		 docker start hadoop-master hadoop-slave1 hadoop-slave2
 
 # Manipulation de fichiers dans HDFS
- 
- 
+ Une fois Hadoop lancé, on affiche les fichiers avec la commande : 
+ --
+
+    ls -l 
+
+Pour pouvoir manipuler les fichiers, on va utiliser la commande : 
+--
+
+    hadoop fs
+
+Il va permettre d'uliliser **hdfs** comme si on était directement sur une seule machine. 
+Créons une dossier imput apr exemple avec **-p** qui va prendre le path jusqu'à arriver à ce chemin.
+Sans ce **-p** hadoop ne va rien créer car rien n'existe encore.
+--
+
+    hadoop fs -mkdir -p input
+
+Il faut au préalable exécuter la commande : **./start-hadoop.sh** qui va lancer tous les **daemons** necessaires.
+On peut vérifier le dossier **input** avec la commande : 
+
+    hadoop fs -ls
+
+On va exécuter le fichier **yarn** qui va gérer les ressources (allouer les ressouces) des job dans hadoop.
+Nous allons copier le fichier **purchase.txt** que nous avons dans notre machine. Pour le voir on tape :
+
+    ls
+
+Pour le copier dans **input**, on fait : 
+--
+
+    hadoop fs -put purchases.txt input
+
+Pour l'afficher, on tape :
+--
+
+    hadoop fs -ls input
+
+Pour voir la structure du fichier **input/purchases.txt**, on tape :
+--
+
+    hadoop fs -tail input/purchases.txt
+
+
+
