@@ -82,6 +82,7 @@ Il s’agit du *shell* ou du *bash* (Linux/Ubuntu) du **nœud maître**.
    - La commande **ls**, qui liste les fichiers et dossiers du dossier en cours, doit faire état des répertoires et fichiers suivants (et d’autres fichiers éventuellement): **TP_Hadoop TP_Spark hdfs**
 
 ## Remarque 2
+
  Ces étapes de configuration ne doivent être réalisées qu’une seule fois. 
  Pour relancer le cluster (une fois qu’on a fermé puis relancé son ordinateur par ex.), il suffira :
   - de lancer l’application *Docker Desktop*, qui lance les daemon Docker.
@@ -90,6 +91,7 @@ Il s’agit du *shell* ou du *bash* (Linux/Ubuntu) du **nœud maître**.
    		 docker start hadoop-master hadoop-slave1 hadoop-slave2
 
 # Vid3 : Manipulation de fichiers dans HDFS
+
  Une fois Hadoop lancé, on affiche les fichiers avec la commande : 
  --
 
